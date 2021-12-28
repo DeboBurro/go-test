@@ -11,6 +11,8 @@ import (
 // also, we can use n, err := fmt.Scan(...) to determine if the input is valid
 
 func main(){
+    conferenceName := "JustKiddingConf"
+    greetUsers(conferenceName)
 	// var userName string
 	// var userTicket uint16
 	// Need to pass the pointer of an variable so scan can assignstdin into it
@@ -24,6 +26,7 @@ func main(){
 	var userTicket int16
 	var totalTicket int16
 	totalTicket = 50
+	fmt.Println("Enter number of tickets you need: ")
 	n, err := fmt.Scan(&userTicket)
 	if err == nil{
 		fmt.Println(userTicket)
@@ -69,21 +72,8 @@ func main(){
 	//  Put some code here to run 
 	// }
 
-	firstNames := []string{}
-	for _, booking := range bookingSlice{
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
-		if remainTickets == 0{
-			fmt.Println("All tickets already got booked. Aborted.")
-		    break
-		}else if booking == "ABC" {
-			fmt.Println("this is jt a dummy line")
-		}else{
-			remainTickets -= 1
-			continue
-		}
-	}
-	fmt.Println(firstNames)
+	firstNames_pre := []string{}
+    firstNames := printFirstNames(remainTickets, bookingSlice, firstNames_pre)
 
 	remainTickets = 3
 	// defined end status in the beginning of the loop
@@ -103,9 +93,9 @@ func main(){
 	fmt.Scan(&firstName)
 	fmt.Println("Enter your email : ")
 	fmt.Scan(&email)
-	// This is really consise nice
-	isValidName := len(firstName) >= 2 || len(lastName) !=2 && strings.Contains(email, "@")
-	fmt.Println(isValidName)
+
+	isValidName,  isValidEmail := validateUserInput(firstName, lastName, email)
+	fmt.Println(isValidName, isValidEmail)
 	fmt.Println("lastname is ", lastName)
 	// Newcomer need to know the difference between string, rune and characters from the link : https://go.dev/blog/strings
 	// Otherwise, you would find it weird when trying to access each character from a string
@@ -124,4 +114,37 @@ func main(){
 		fmt.Println("No valid city selected")
 	}
 
+}
+
+// [TODO] : find out how to make optional function paramenters (or give them default values) 
+// The datatype defined in the back is so weird  LOL
+func greetUsers(conf string){
+	fmt.Println("welcome here : ", conf)
+}
+
+// I prefer string[] instead of []string                                            V--- the output data type here looks cute for some reason
+func printFirstNames(remainTickets int, bookingSlice []string, firstNames []string) []string {
+	for _, booking := range bookingSlice{
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+		if remainTickets == 0{
+			fmt.Println("All tickets already got booked. Aborted.")
+		    break
+		}else if booking == "ABC" {
+			fmt.Println("this is jt a dummy line")
+		}else{
+			remainTickets -= 1
+			continue
+		}
+	}
+	fmt.Println(firstNames)
+	return firstNames
+}
+
+// Need to specify an array of output datatypes
+func validateUserInput(firstName string, lastName string, email string) (bool, bool){
+	// This is really consise nice
+	isValidName := len(firstName) >= 2 || len(lastName) !=2 && strings.Contains(email, "@")
+	isValidEmail := len(email) >= 5
+    return isValidName, isValidEmail
 }
