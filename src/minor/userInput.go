@@ -109,5 +109,19 @@ func main(){
 	fmt.Println("lastname is ", lastName)
 	// Newcomer need to know the difference between string, rune and characters from the link : https://go.dev/blog/strings
 	// Otherwise, you would find it weird when trying to access each character from a string
-    fmt.Printf("%c", []rune(lastName)[0])
+    fmt.Printf("%c\n", []rune(lastName)[0])
+
+	// switch statement
+	city := "London"
+	switch city{
+	case "London", "England":
+		// some code here
+	case "Taiwan", "Taipei":
+		// some code here
+	case "US":
+		// some code here
+	default:
+		fmt.Println("No valid city selected")
+	}
+
 }
