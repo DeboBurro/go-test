@@ -4,6 +4,7 @@ package main
 // import multiple modules
 import (
 	"fmt"
+	"strings"
 )
 
 // Found weird stuff from fmt.Scan but #1359 and #1462 mentioned this is the best for developer to use
@@ -54,9 +55,24 @@ func main(){
 
     // var bookingSlice = []string{}
 	var bookingSlice []string
-	bookingSlice = append(bookingSlice, "Nana is good")
+	bookingSlice = append(bookingSlice, "Nana good")
+	bookingSlice = append(bookingSlice, "Debo bad")
+	bookingSlice = append(bookingSlice, "Well done")
 	fmt.Printf("The whole array is %v \n", bookingSlice)
 	fmt.Printf("The first value is %v \n", bookingSlice[0])
 	fmt.Printf("Array type : %T\n" , bookingSlice)
-	fmt.Printf("Array length : %v \n", len(bookingSlice))	
+	fmt.Printf("Array length : %v \n", len(bookingSlice))
+
+	// infinite loop
+	// for {
+	//  Put some code here to run 
+	// }
+
+	firstNames := []string{}
+	for _,booking := range bookingSlice{
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	fmt.Println(firstNames)
+
 }
