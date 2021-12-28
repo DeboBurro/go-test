@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strings"
 	"go-test/main"
+	"strconv"
 )
 
 // Found weird stuff from fmt.Scan but #1359 and #1462 mentioned this is the best for developer to use
@@ -15,6 +16,10 @@ import (
 // Package level variable cannot be create by :=
 // conferenceName := "JustKiddingConf"
 var conferenceName = "JustKiddingConf"
+
+// [TODO] : take a look on how to use `make` in different ways 
+//create a slice of map[string]string, but we need to initialize it with an default size
+var userDataSliceMap = make([]map[string]string, 0)
 
 
 func main(){
@@ -93,12 +98,25 @@ func main(){
 	var lastName string
 	var firstName string
 	var email string
+	var userTickets uint
 	fmt.Println("Enter your last name : ")
 	fmt.Scan(&lastName)
 	fmt.Println("Enter your first name : ")
 	fmt.Scan(&firstName)
 	fmt.Println("Enter your email : ")
 	fmt.Scan(&email)
+	fmt.Println("Enter your number of tickets you have got : ")
+	fmt.Scan(&userTickets)
+
+	// make creating a map
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+    userData["lastName"] = lastName
+	userData["email"] = email
+	userData["userTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+    userDataSliceMap = append(userDataSliceMap, userData)
+	firstNameSlice := getFirstName()
+	fmt.Println(firstNameSlice)
 
 	isValidName,  isValidEmail := notmain.ValidateUserInput(firstName, lastName, email)
 	fmt.Println(isValidName, isValidEmail)
@@ -145,5 +163,13 @@ func printFirstNames(remainTickets int, bookingSlice []string, firstNames []stri
 		}
 	}
 	fmt.Println(firstNames)
+	return firstNames
+}
+
+func getFirstName() []string{
+	firstNames := []string{}
+	for _, booking := range userDataSliceMap{
+		firstNames = append(firstNames, booking["firstName"])
+	}
 	return firstNames
 }
