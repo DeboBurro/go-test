@@ -1,4 +1,4 @@
-package main
+package notmain
 
 import "fmt"
 
@@ -11,7 +11,7 @@ import "fmt"
 // cannot use const when only do declaration :=, ex : const c := 2 would generate error
 
 
-func main(){
+func mainly(){
   fmt.Println("Hello")
   const conferenceName = "Go Conference"
   var conferenceTicket uint8 = 50

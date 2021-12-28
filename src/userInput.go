@@ -1,6 +1,4 @@
 package main
-// 
-
 // package minor
 // if the package is not a main pkg, you cannot run : go run ***.go
 // import multiple modules
@@ -102,7 +100,7 @@ func main(){
 	fmt.Println("Enter your email : ")
 	fmt.Scan(&email)
 
-	isValidName,  isValidEmail := validateUserInput(firstName, lastName, email)
+	isValidName,  isValidEmail := notmain.ValidateUserInput(firstName, lastName, email)
 	fmt.Println(isValidName, isValidEmail)
 	fmt.Println("lastname is ", lastName)
 	// Newcomer need to know the difference between string, rune and characters from the link : https://go.dev/blog/strings
