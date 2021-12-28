@@ -5,6 +5,7 @@ package notmain
 import "strings"
 
 // Need to specify an array of output datatypes
+// Capitalize the function means it will exported as a sort of public function that other package can use
 func ValidateUserInput(firstName string, lastName string, email string) (bool, bool){
 	// This is really consise nice
 	isValidName := len(firstName) >= 2 || len(lastName) !=2 && strings.Contains(email, "@")
