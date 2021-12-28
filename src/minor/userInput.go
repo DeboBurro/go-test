@@ -93,5 +93,21 @@ func main(){
 		remainTickets -= 1
 	}
     
-
+	// Validate user input
+	var lastName string
+	var firstName string
+	var email string
+	fmt.Println("Enter your last name : ")
+	fmt.Scan(&lastName)
+	fmt.Println("Enter your first name : ")
+	fmt.Scan(&firstName)
+	fmt.Println("Enter your email : ")
+	fmt.Scan(&email)
+	// This is really consise nice
+	isValidName := len(firstName) >= 2 || len(lastName) !=2 && strings.Contains(email, "@")
+	fmt.Println(isValidName)
+	fmt.Println("lastname is ", lastName)
+	// Newcomer need to know the difference between string, rune and characters from the link : https://go.dev/blog/strings
+	// Otherwise, you would find it weird when trying to access each character from a string
+    fmt.Printf("%c", []rune(lastName)[0])
 }
