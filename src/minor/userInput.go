@@ -41,4 +41,22 @@ func main(){
 	// fmt.Println(n)
 	// fmt.Println(err)
 
+	// In GO, array is constant size while Slices is dynamical size of array
+	// var bookings = [50]string{}
+	// the size of an array need to be an constant integer, the line beow would fail
+    // var bookings [totalTicket]string
+    var bookings [50]string
+	bookings[0] = "Nana" + " is good"
+	fmt.Printf("The whole array is %v \n", bookings) // this stdout looks weird : The whole array is [Nana is good                                                 ] 
+	fmt.Printf("The first value is %v \n", bookings[0])
+	fmt.Printf("Array type : %T\n" , bookings)
+	fmt.Printf("Array length : %v \n", len(bookings))
+
+    // var bookingSlice = []string{}
+	var bookingSlice []string
+	bookingSlice = append(bookingSlice, "Nana is good")
+	fmt.Printf("The whole array is %v \n", bookingSlice)
+	fmt.Printf("The first value is %v \n", bookingSlice[0])
+	fmt.Printf("Array type : %T\n" , bookingSlice)
+	fmt.Printf("Array length : %v \n", len(bookingSlice))	
 }
