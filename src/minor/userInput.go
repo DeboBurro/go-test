@@ -20,6 +20,7 @@ func main(){
 	// fmt.Println(userTicket)
 
 	// 
+	remainTickets := 1
 	var userTicket int16
 	var totalTicket int16
 	totalTicket = 50
@@ -69,10 +70,28 @@ func main(){
 	// }
 
 	firstNames := []string{}
-	for _,booking := range bookingSlice{
+	for _, booking := range bookingSlice{
 		var names = strings.Fields(booking)
 		firstNames = append(firstNames, names[0])
+		if remainTickets == 0{
+			fmt.Println("All tickets already got booked. Aborted.")
+		    break
+		}else if booking == "ABC" {
+			fmt.Println("this is jt a dummy line")
+		}else{
+			remainTickets -= 1
+			continue
+		}
 	}
 	fmt.Println(firstNames)
+
+	remainTickets = 3
+	// defined end status in the beginning of the loop
+	for remainTickets >= 0 && len(firstNames) > 0{
+		// just a random loop
+		fmt.Println(remainTickets)
+		remainTickets -= 1
+	}
+    
 
 }
