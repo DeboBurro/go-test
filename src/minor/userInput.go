@@ -10,9 +10,14 @@ import (
 // Found weird stuff from fmt.Scan but #1359 and #1462 mentioned this is the best for developer to use
 // also, we can use n, err := fmt.Scan(...) to determine if the input is valid
 
+// This is a Package level varaible
+// Package level variable cannot be create by :=
+// conferenceName := "JustKiddingConf"
+var conferenceName = "JustKiddingConf"
+
+
 func main(){
-    conferenceName := "JustKiddingConf"
-    greetUsers(conferenceName)
+    greetUsers()
 	// var userName string
 	// var userTicket uint16
 	// Need to pass the pointer of an variable so scan can assignstdin into it
@@ -118,8 +123,9 @@ func main(){
 
 // [TODO] : find out how to make optional function paramenters (or give them default values) 
 // The datatype defined in the back is so weird  LOL
-func greetUsers(conf string){
-	fmt.Println("welcome here : ", conf)
+func greetUsers(){
+	// Since the conferenceName varaiable is a package level variable, all the function here can access it
+	fmt.Println("welcome here : ", conferenceName)
 }
 
 // I prefer string[] instead of []string                                            V--- the output data type here looks cute for some reason
@@ -139,12 +145,4 @@ func printFirstNames(remainTickets int, bookingSlice []string, firstNames []stri
 	}
 	fmt.Println(firstNames)
 	return firstNames
-}
-
-// Need to specify an array of output datatypes
-func validateUserInput(firstName string, lastName string, email string) (bool, bool){
-	// This is really consise nice
-	isValidName := len(firstName) >= 2 || len(lastName) !=2 && strings.Contains(email, "@")
-	isValidEmail := len(email) >= 5
-    return isValidName, isValidEmail
 }
