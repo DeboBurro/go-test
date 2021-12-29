@@ -7,7 +7,12 @@ import (
 	"strings"
 	"go-test/main"
 	"strconv"
+	"time"
+	"sync"
 )
+
+// Create a wait group
+var  wg =  sync.WaitGroup{}
 
 // Found weird stuff from fmt.Scan but #1359 and #1462 mentioned this is the best for developer to use
 // also, we can use n, err := fmt.Scan(...) to determine if the input is valid
@@ -21,6 +26,15 @@ var conferenceName = "JustKiddingConf"
 //create a slice of map[string]string, but we need to initialize it with an default size
 var userDataSliceMap = make([]map[string]string, 0)
 
+// create custom data type called UserData
+type UserData struct {
+	firstName string
+	lastName string
+	email string
+	numberOfTickets uint
+}
+
+var myUserDataSlice = make([]UserData, 0)
 
 func main(){
     greetUsers()
@@ -115,8 +129,24 @@ func main(){
 	userData["email"] = email
 	userData["userTickets"] = strconv.FormatUint(uint64(userTickets), 10)
     userDataSliceMap = append(userDataSliceMap, userData)
-	firstNameSlice := getFirstName()
+	// firstNameSlice := getFirstName()
+	firstNameSlice := getFirstNameFromMyUserData()
 	fmt.Println(firstNameSlice)
+
+    // make creating a self-defined UserData, at this moment, we don't need to convert any uint to string like the line strconv above
+    var myUserData = UserData {
+		firstName : firstName,
+		lastName : lastName,
+		email : email,
+	    numberOfTickets : userTickets,
+	}
+
+	myUserDataSlice = append(myUserDataSlice , myUserData)
+	fmt.Println(myUserDataSlice)
+
+	// Goroutine : multi-threaded the send-ticket process but main thread didn't wait for other minor threads to finish...
+    wg.Add(1)
+	go sendTicket(userTickets, firstName, lastName, email)
 
 	isValidName,  isValidEmail := notmain.ValidateUserInput(firstName, lastName, email)
 	fmt.Println(isValidName, isValidEmail)
@@ -137,7 +167,7 @@ func main(){
 	default:
 		fmt.Println("No valid city selected")
 	}
-
+    wg.Wait()
 }
 
 // [TODO] : find out how to make optional function paramenters (or give them default values) 
@@ -173,3 +203,24 @@ func getFirstName() []string{
 	}
 	return firstNames
 }
+
+
+func getFirstNameFromMyUserData() []string{
+	firstNames := []string{}
+	for _, booking := range myUserDataSlice{
+		firstNames = append(firstNames, booking.firstName)
+	}
+	return firstNames
+}
+
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string){
+	// Save a formatted string
+	time.Sleep(10 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+    fmt.Println()
+	fmt.Printf("Sending ticket %v to email address %v", ticket, email)
+	fmt.Println()
+	wg.Done()
+}
+
