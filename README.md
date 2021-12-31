@@ -22,6 +22,11 @@ A project to understand some parts of golang's philosophy
 ### Cons
 1. Feel something weird about `fmt` library, like `Scanf` will pipe string back to stdin which might cause issues.
 2. Controversial error handling. I feel good to be able to explicitly know the error message but I need to bypass the errors by several if or switch statements to handle each case which feels a little bit too much.
+
+### Conceptually designed
+1. No function overloading and user defined operators.
+2. No Generics 
 ---
 ## TODO
 1. Kinda wondering the performance on CPU, RAM, compile time, process time between c++ and go.
+2. Guess I need to defined my onw `UserDataPrintln` to print the format of the struct I want since golang doesn't want me to overload
